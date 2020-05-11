@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             for (int cols = 0; cols < buttons[0].length; cols++) {
                 if (v == buttons[rows][cols] && buttons[rows][cols].getText() == "") {
                     buttons[rows][cols].setText(currentPlayer.playerName);
+                    currentPlayer.justPlayed = true;
                 }
             }
         }
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             textDisplay("Tie Game!");
             gameOver();
         }
-        else {
+        else if (currentPlayer.justPlayed) {
             changePlayer();
         }
     }
@@ -137,10 +138,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void changePlayer() {
         if (currentPlayer == x) {
+            x.justPlayed = false;
             currentPlayer = o;
             displayCurrentPlayer();
         }
-        else {
+        else if (currentPlayer == o){
+            o.justPlayed = false;
             currentPlayer = x;
             displayCurrentPlayer();
         }
